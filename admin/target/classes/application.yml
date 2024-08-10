@@ -1,0 +1,25 @@
+spring:
+  data:
+  datasource:
+    url: jdbc:mysql://localhost/admin_db?allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+
+server:
+  port: 8080
+
+#    database-platform: org.hibernate.dialect.MySQL5Dialect
+
+
+
+

@@ -1,0 +1,6 @@
+git add .
+git commit -m "Initial commit
+git branch -M main
+git remote remove origin(optional)
+git remote add origin <your_repository_url>
+git push -u origin master

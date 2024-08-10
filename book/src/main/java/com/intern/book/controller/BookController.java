@@ -33,20 +33,20 @@ public class BookController {
     public BookDTO updateBook(@PathVariable Long bookId, @RequestBody BookDTO bookDTO) {
         return bookService.updateBook(bookId, bookDTO);
     }
-//    @DeleteMapping("/delete/{id}")
-//    public void deleteBook(@PathVariable Long id) {
-//        Book book = bookRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Book not found"));
-//
-//        // Clear the collection reference
-//        if (book.getCollection() != null) {
-//            book.setCollection(null);
-//        }
-//
-//        if (book.getBookTypes()!= null) {
-//            book.setBookTypes(null);
-//        }
-//        bookRepository.save(book);
-//        bookService.deleteBook(id);
-//    }
+    @DeleteMapping("/delete/{id}")
+    public void deleteBook(@PathVariable Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        // Clear the collection reference
+        if (book.getCollection() != null) {
+            book.setCollection(null);
+        }
+
+        if (book.getBookTypes()!= null) {
+            book.setBookTypes(null);
+        }
+        bookRepository.save(book);
+        bookService.deleteBook(id);
+    }
 }

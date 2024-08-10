@@ -22,4 +22,11 @@ public class CollectionServiceImpl implements CollectionService {
         return CollectionMapper.entityToDTO(collection);
     }
 
+    @Override
+    public String delete(Long collectionId) {
+      collectionRepository.deleteById(collectionId);
+
+        return collectionRepository.existsById(collectionId)?"Success!":"Fail!";
+    }
+
 }

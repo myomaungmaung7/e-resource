@@ -83,10 +83,10 @@ public class BookServiceImpl implements BookService {
         return BookMapper.entityToDTO(updatedBook);
     }
 
-//    @Override
-//    public void deleteBook(Long bookId) {
-//        bookRepository.deleteById(bookId);
-//    }
+    @Override
+    public void deleteBook(Long bookId) {
+        bookRepository.deleteById(bookId);
+    }
 
 }
 

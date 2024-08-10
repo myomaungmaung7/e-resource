@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "5399b3dc-d43a-4c24-96c4-e5c7b3aea744",
+		"name": "Book-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37188562"
+	},
+	"item": [
+		{
+			"name": "Collection",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"collection-2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/col-con",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"col-con"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mainTitle\": \"Book-1\",\r\n    \"subtitle\": \"subtitle-1\",\r\n    \"author\": \"author-1\",\r\n    \"publisher\": \"publisher\",\r\n    \"publisherYear\": \"2024-02-02\",\r\n    \"collectionId\": 1,\r\n    \"typesId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/book-con",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"book-con"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findbyid",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/book-con/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"book-con",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findall",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/book-con/allbook",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"book-con",
+								"allbook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": 1,\r\n    \"mainTitle\": \"Book-1\",\r\n    \"subtitle\": \"subtitle-update\",\r\n    \"author\": \"author-1\",\r\n    \"publisher\": \"publisher\",\r\n    \"publisherYear\": \"2024-02-02\",\r\n    \"collection\": {\r\n        \"id\": 1,\r\n        \"name\": \"collection-1\",\r\n        \"createDate\": \"2024-08-08\"\r\n    },\r\n    \"book\": {\r\n        \"typesId\": 1,\r\n        \"name\": \"Myanmar\",\r\n        \"typesCode\": \"Myanmar-1\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/book-con/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"book-con",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": 1\r\n \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/book-con/delete/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"book-con",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookTypes",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"Myanmar\",\r\n  \"typesCode\":\"Myanmar-1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/book-types",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"book-types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

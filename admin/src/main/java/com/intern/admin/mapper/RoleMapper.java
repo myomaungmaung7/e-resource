@@ -1,6 +1,7 @@
 package com.intern.admin.mapper;
 
 import com.intern.admin.dto.RoleDTO;
+import com.intern.admin.entity.Permission;
 import com.intern.admin.entity.Role;
 
 public class RoleMapper {

@@ -1,20 +1,20 @@
 package com.intern.admin.service.Impl;
 
+import com.intern.admin.dto.AddPermissionDTO;
 import com.intern.admin.dto.RoleDTO;
 import com.intern.admin.entity.Permission;
 import com.intern.admin.entity.Role;
 import com.intern.admin.mapper.RoleMapper;
-import com.intern.admin.mapper.RolePermissionMapper;
 import com.intern.admin.repository.PermissionRepository;
 import com.intern.admin.repository.RoleRepository;
 import com.intern.admin.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -25,8 +25,6 @@ public class RoleServiceImpl implements RoleService {
 
     private final PermissionRepository permissionRepository;
 
-    private RolePermissionMapper rolePermissionMapper;
-
     @Override
     public RoleDTO saveEntity(RoleDTO roleDTO) {
         if (roleRepository.existsByRoleName(roleDTO.getRoleName().toUpperCase()))
@@ -36,30 +34,24 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional
-    public RoleDTO addPermission(Long roleId, List<Long> permissionIds) {
-        Optional<Role> roleOptional = roleRepository.findById(roleId);
-        if (!roleOptional.isPresent()) {
-            throw new RuntimeException("Role not found");
-        }
-        Role role = roleOptional.get();
+    public String addPermission(AddPermissionDTO addPermissionDTO) {
+        Role role = roleRepository.findById(addPermissionDTO.getRoleId()).orElse(null);
+        List<Permission> permissions = new ArrayList<>();
+        addPermissionDTO.getPermissionIds().forEach(permissionId -> {
+            Permission permission = permissionRepository.findById(permissionId).orElse(null);
+            permissions.add(permission);
+        });
+            role.setPermissions(permissions);
 
-        for (Long permissionId : permissionIds) {
-            Optional<Permission> permissionOpt = permissionRepository.findById(permissionId);
-            if (!permissionOpt.isPresent()) {
-                throw new RuntimeException("Permission not found");
-            }
-            Permission permission = permissionOpt.get();
-
-            if (role.getPermissions().contains(permission)) {
-                throw new RuntimeException(String.format("Permission already exists"));
-            }
-
-            role.getPermissions().add(permission);
-        }
-        roleRepository.save(role);
-        log.info(String.format("Permission added: %s", permissionIds, roleId));
-        return rolePermissionMapper.entityToDto(role);
+        return ObjectUtils.isEmpty(roleRepository.save(role))?"success":"failed";
     }
 
+//    @Override
+//    public RoleDTO getRoleById(Long id) {
+//        final Role role = roleRepository.findById(id).orElse(null);
+//        if (ObjectUtils.isEmpty(role.getPermissions())) {
+//            role.setPermissions(new ArrayList<>());
+//        }
+//        return RoleMapper.entityToDto(role);
+//    }
 }

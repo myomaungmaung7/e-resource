@@ -1,5 +1,6 @@
 package com.intern.admin.controller;
 
+import com.intern.admin.dto.AddPermissionDTO;
 import com.intern.admin.dto.RoleDTO;
 import com.intern.admin.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,13 @@ public class RoleController {
         return ResponseEntity.ok(roleService.saveEntity(roleDTO));
     }
 
-    @PostMapping("/roles/{roleId}/permissions/{permissionId}")
-    public ResponseEntity<RoleDTO> addPermission(@RequestBody @RequestParam Long roleId, @RequestParam List<Long> permissionIds) {
-        return ResponseEntity.ok(roleService.addPermission(roleId, permissionIds));
+    @PostMapping("add-permission")
+    public ResponseEntity<String> addPermission(@RequestBody AddPermissionDTO addPermissionDTO) {
+        return ResponseEntity.ok(roleService.addPermission(addPermissionDTO));
     }
+
+//    @GetMapping("/{id}")
+//    public RoleDTO getRoleById(@PathVariable Long id) {
+//        return roleService.getRoleById(id);
+//    }
 }

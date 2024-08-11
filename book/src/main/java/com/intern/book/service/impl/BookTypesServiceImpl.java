@@ -2,9 +2,9 @@ package com.intern.book.service.impl;
 
 import com.intern.book.dto.BookTypesDTO;
 import com.intern.book.entity.BookTypes;
-import com.intern.book.entity.Collection;
+
 import com.intern.book.mapper.BookTypesMapper;
-import com.intern.book.mapper.CollectionMapper;
+
 import com.intern.book.repository.BookTypesRepository;
 import com.intern.book.service.BookTypesService;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +22,11 @@ public class BookTypesServiceImpl implements BookTypesService {
         }
         final BookTypes bookTypes = bookTypesRepository.save(BookTypesMapper.dtoToEntity(bookTypesDTO));
         return BookTypesMapper.entityToDTO(bookTypes);
+    }
+
+    @Override
+    public String delete(Long bookTypesId) {
+        bookTypesRepository.deleteById(bookTypesId);
+        return bookTypesRepository.existsById(bookTypesId) ?"Fail!":"Success";
     }
 }

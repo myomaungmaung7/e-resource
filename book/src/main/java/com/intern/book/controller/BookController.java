@@ -22,11 +22,12 @@ public class BookController {
     }
     @GetMapping("/{id}")
     public BookDTO getBookById(@PathVariable Long id) {
-        return bookService.getBookById(id);
 
+        return bookService.getBookById(id);
     }
     @GetMapping("/allbook")
     public List<BookDTO> getAllBooks() {
+
         return bookService.getAllBooks();
     }
     @PutMapping("/update/{bookId}")
@@ -42,6 +43,7 @@ public class BookController {
         if (book.getCollection() != null) {
             book.setCollection(null);
         }
+
 
         if (book.getBookTypes()!= null) {
             book.setBookTypes(null);

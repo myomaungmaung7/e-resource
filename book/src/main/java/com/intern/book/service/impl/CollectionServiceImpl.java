@@ -25,8 +25,7 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public String delete(Long collectionId) {
       collectionRepository.deleteById(collectionId);
-
-        return collectionRepository.existsById(collectionId)?"Success!":"Fail!";
+      return collectionRepository.existsById(collectionId)?"Fail!":"Success";
     }
 
 }

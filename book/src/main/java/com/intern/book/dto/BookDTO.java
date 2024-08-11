@@ -22,10 +22,9 @@ public class BookDTO {
     private String  publisherYear;
 
     private Long  collectionId;
-    @JsonIgnore
     private CollectionDTO collectionDTO;
 
-    private ResponseDTO collectionResponseDTO;
+  //  private ResponseDTO collectionResponseDTO;
 
     private Long typesId;
     private BookTypesDTO bookTypesDTO;

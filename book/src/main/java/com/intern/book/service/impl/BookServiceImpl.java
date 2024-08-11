@@ -3,7 +3,7 @@ package com.intern.book.service.impl;
 import com.intern.book.dto.BookDTO;
 import com.intern.book.dto.BookTypesDTO;
 import com.intern.book.dto.CollectionDTO;
-import com.intern.book.dto.ResponseDTO;
+
 import com.intern.book.entity.Book;
 import com.intern.book.entity.BookTypes;
 import com.intern.book.entity.Collection;
@@ -17,8 +17,9 @@ import com.intern.book.repository.CollectionRepository;
 import com.intern.book.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,8 +39,8 @@ public class BookServiceImpl implements BookService {
         Collection collection = collectionRepository.findById(bookDTO.getCollectionId()).orElseThrow();
         collection.add(book);
         collectionRepository.save(collection);
-//        CollectionDTO collectionDTO = CollectionMapper.entityToDTO(collection);
-        ResponseDTO responseDTO = CollectionMapper.response(collection);
+        CollectionDTO collectionDTO = CollectionMapper.entityToDTO(collection);
+       // ResponseDTO responseDTO = CollectionMapper.response(collection);
 
         //search from database using bookDTO.getBookTypesDTO()
         BookTypes bookTypes = bookTypesRepository.findById(bookDTO.getTypesId()).orElseThrow();
@@ -49,8 +50,8 @@ public class BookServiceImpl implements BookService {
 
         //response Data
         BookDTO bookDTO1 = BookMapper.entityToDTO(book);
-//        bookDTO1.setCollectionDTO(collectionDTO);
-        bookDTO1.setCollectionResponseDTO(responseDTO);
+        bookDTO1.setCollectionDTO(collectionDTO);
+      //  bookDTO1.setCollectionResponseDTO(responseDTO);
         bookDTO1.setBookTypesDTO(bookTypesDTO);
 
         return bookDTO1;
@@ -58,6 +59,12 @@ public class BookServiceImpl implements BookService {
 
     public BookDTO getBookById(Long id) {
         final Book book = bookRepository.findById(id).orElse(null);
+        if (ObjectUtils.isEmpty(book.getCollection())) {
+            book.setCollection(new Collection());
+        }
+        if (ObjectUtils.isEmpty(book.getBookTypes())) {
+            book.setBookTypes(new BookTypes() );
+        }
         return BookMapper.entityToDTO(book);
     }
 
@@ -70,17 +77,24 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO updateBook(Long bookId, BookDTO bookDTO) {
+
+        Collection collection=collectionRepository.findById(bookDTO.getCollectionId()).orElseThrow();
+      //  CollectionDTO collectionDTO = CollectionMapper.entityToDTO(collection);
+
+        BookTypes bookTypes=bookTypesRepository.findById(bookDTO.getTypesId()).orElseThrow();
+      //  BookTypesDTO bookTypesDTO = BookTypesMapper.entityToDTO(bookTypes);
+
         Book existingBook = bookRepository.findById(bookId)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
-
-        // Update the existing book entity with data from the DTO
-        BookMapper.updateEntityFromDTO(bookDTO, existingBook);
+        existingBook.setBookTypes(bookTypes);
+        existingBook.setCollection(collection);
 
         // Save the updated book back to the database
         Book updatedBook = bookRepository.save(existingBook);
+        BookDTO bookDTO1 = BookMapper.entityToDTO(updatedBook);
 
-        // Convert the updated book back to DTO and return it
-        return BookMapper.entityToDTO(updatedBook);
+
+        return bookDTO1;
     }
 
     @Override

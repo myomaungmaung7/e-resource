@@ -1,6 +1,7 @@
 package com.intern.admin.service.Impl;
 
 import com.intern.admin.dto.AddPermissionDTO;
+import com.intern.admin.dto.PermissionDTO;
 import com.intern.admin.dto.RoleDTO;
 import com.intern.admin.entity.Permission;
 import com.intern.admin.entity.Role;
@@ -11,6 +12,7 @@ import com.intern.admin.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -46,12 +48,11 @@ public class RoleServiceImpl implements RoleService {
         return ObjectUtils.isEmpty(roleRepository.save(role))?"success":"failed";
     }
 
-//    @Override
-//    public RoleDTO getRoleById(Long id) {
-//        final Role role = roleRepository.findById(id).orElse(null);
-//        if (ObjectUtils.isEmpty(role.getPermissions())) {
-//            role.setPermissions(new ArrayList<>());
-//        }
-//        return RoleMapper.entityToDto(role);
-//    }
+    @Override
+    @Transactional
+    public RoleDTO getPermissionsByRoleId(Long roleId) {
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+        return RoleMapper.entityToDto(role);
+    }
 }

@@ -1,7 +1,9 @@
 package com.intern.admin.controller;
 
 import com.intern.admin.dto.AddPermissionDTO;
+import com.intern.admin.dto.PermissionDTO;
 import com.intern.admin.dto.RoleDTO;
+import com.intern.admin.entity.Role;
 import com.intern.admin.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +28,9 @@ public class RoleController {
         return ResponseEntity.ok(roleService.addPermission(addPermissionDTO));
     }
 
-//    @GetMapping("/{id}")
-//    public RoleDTO getRoleById(@PathVariable Long id) {
-//        return roleService.getRoleById(id);
-//    }
+    @GetMapping("/{roleId}/permissions")
+    public ResponseEntity<RoleDTO> getPermissionsByRoleId(@PathVariable Long roleId) {
+        RoleDTO roleDTO = roleService.getPermissionsByRoleId(roleId);
+        return ResponseEntity.ok(roleDTO);
+    }
 }

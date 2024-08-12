@@ -18,6 +18,11 @@ public class RoleMapper {
     }
 
     public static RoleDTO entityToDto(Role entity) {
+
+        if (entity == null) {
+            return null;
+        }
+
         List<PermissionDTO> permissionDTOS = entity.getPermissions().stream()
                 .map(permission -> PermissionDTO.builder()
                         .id(permission.getId())
@@ -27,11 +32,16 @@ public class RoleMapper {
                         .build())
                         .collect(Collectors.toList());
 
+        List<Long> permissionIds = entity.getPermissions().stream()
+                .map(Permission::getId)
+                .collect(Collectors.toList());
+
         return RoleDTO.builder()
                 .roleId(entity.getRoleId())
                 .roleName(entity.getRoleName())
                 .roleDesc(entity.getDescription())
                 .permissionDTOS(permissionDTOS)
+                .permissionIds(permissionIds)
                 .build();
     }
 }

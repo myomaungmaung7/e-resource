@@ -18,4 +18,5 @@ public class RoleDTO {
     private String roleDesc;
     private Long roleId;
     private List<PermissionDTO> permissionDTOS = new ArrayList<>();
+    private List<Long> permissionIds = new ArrayList<>();
 }

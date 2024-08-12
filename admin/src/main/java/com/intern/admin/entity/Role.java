@@ -36,5 +36,12 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private List<Permission> permissions= new ArrayList<>();
 
+    public void removePermission(Permission permission) {
+        permissions.remove(permission);
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions != null ? permissions : new ArrayList<>();
+    }
 
 }

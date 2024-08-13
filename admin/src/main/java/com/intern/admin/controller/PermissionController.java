@@ -4,10 +4,7 @@ import com.intern.admin.dto.PermissionDTO;
 import com.intern.admin.service.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +16,11 @@ public class PermissionController {
     @PostMapping
     public ResponseEntity<?> savePermission(@RequestBody PermissionDTO permissionDTO) {
         return ResponseEntity.ok(permissionService.saveEntity(permissionDTO));
+    }
+
+    @DeleteMapping("/permissions/{permissionId}")
+    public ResponseEntity<Void> deletePermission(@PathVariable Long permissionId) {
+        permissionService.deletePermission(permissionId);
+        return ResponseEntity.noContent().build();
     }
 }

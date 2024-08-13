@@ -14,5 +14,5 @@ public interface RoleService {
 
     void removePermissionsByRoleId(Long roleId, Long permissionId);
 
-
+    void deleteRole(Long roleId);
 }

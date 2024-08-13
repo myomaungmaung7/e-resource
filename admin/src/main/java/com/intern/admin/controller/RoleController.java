@@ -35,4 +35,10 @@ public class RoleController {
         roleService.removePermissionsByRoleId(roleId, permissionId);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/roles/{roleId}")
+    public ResponseEntity<Void> deleteRole(@PathVariable Long roleId) {
+        roleService.deleteRole(roleId);
+        return ResponseEntity.noContent().build();
+    }
 }

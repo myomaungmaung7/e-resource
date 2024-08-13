@@ -78,4 +78,12 @@ public class RoleServiceImpl implements RoleService {
         role.removePermission(permission);
         roleRepository.save(role);
     }
+
+    @Override
+    public void deleteRole(Long roleId) {
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        roleRepository.delete(role);
+    }
 }

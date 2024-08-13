@@ -21,4 +21,12 @@ public class PermissionServiceImpl implements PermissionService {
         Permission permission = permissionRepository.save(PermissionMapper.dtoToEntity(permissionDTO));
         return PermissionMapper.entityToDto(permission);
     }
+
+    @Override
+    public void deletePermission(Long permissionId) {
+        Permission permission = permissionRepository.findById(permissionId)
+                .orElseThrow(() -> new RuntimeException("permission not found"));
+
+        permissionRepository.delete(permission);
+    }
 }

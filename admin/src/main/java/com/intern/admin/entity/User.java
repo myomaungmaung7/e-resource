@@ -29,6 +29,8 @@ public class User {
 
     private String email;
 
+    private boolean disable;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",
             cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Role> roles;
@@ -39,5 +41,15 @@ public class User {
         }
         roles.add(tempRole);
         tempRole.setUser(this);
+    }
+
+    @PrePersist
+    public void onSave() {
+        this.disable = true;
+    }
+
+    @PreRemove
+    public void onDelete() {
+        this.disable = false;
     }
 }

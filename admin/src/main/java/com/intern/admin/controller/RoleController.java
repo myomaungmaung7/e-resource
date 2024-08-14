@@ -24,20 +24,20 @@ public class RoleController {
         return ResponseEntity.ok(roleService.addPermission(addPermissionDTO));
     }
 
-    @GetMapping("/{roleId}/permissions")
-    public ResponseEntity<RoleDTO> getPermissionsByRoleId(@PathVariable Long roleId) {
+    @GetMapping("role-permissions")
+    public ResponseEntity<RoleDTO> getPermissionsByRoleId(@RequestParam Long roleId) {
         RoleDTO roleDTO = roleService.getPermissionsByRoleId(roleId);
         return ResponseEntity.ok(roleDTO);
     }
 
-    @DeleteMapping("/{roleId}/permissions/{permissionId}")
-    public ResponseEntity<Void> removePermissionsByRoleId(@PathVariable Long roleId, @PathVariable Long permissionId) {
+    @DeleteMapping("permissions")
+    public ResponseEntity<Void> removePermissionsByRoleId(@RequestParam Long roleId, @RequestParam Long permissionId) {
         roleService.removePermissionsByRoleId(roleId, permissionId);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/roles/{roleId}")
-    public ResponseEntity<Void> deleteRole(@PathVariable Long roleId) {
+    @DeleteMapping("roles")
+    public ResponseEntity<Void> deleteRole(@RequestParam Long roleId) {
         roleService.deleteRole(roleId);
         return ResponseEntity.noContent().build();
     }

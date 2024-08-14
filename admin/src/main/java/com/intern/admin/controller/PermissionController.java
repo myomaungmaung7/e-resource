@@ -13,13 +13,13 @@ public class PermissionController {
 
     private final PermissionService permissionService;
 
-    @PostMapping
+    @PostMapping("save-permission")
     public ResponseEntity<?> savePermission(@RequestBody PermissionDTO permissionDTO) {
         return ResponseEntity.ok(permissionService.saveEntity(permissionDTO));
     }
 
-    @DeleteMapping("/permissions/{permissionId}")
-    public ResponseEntity<Void> deletePermission(@PathVariable Long permissionId) {
+    @DeleteMapping("delete-permissions")
+    public ResponseEntity<Void> deletePermission(@RequestParam Long permissionId) {
         permissionService.deletePermission(permissionId);
         return ResponseEntity.noContent().build();
     }
